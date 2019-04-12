@@ -12,7 +12,17 @@ router.get("/", function(req, res, next) {
     });
   });
 
-  router.post('/',function(req,res,next){
+  router.get("/", function(req, res, next) {
+    user.noOfHotel(function(err, rows) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(rows);
+      }
+    });
+  });
+
+  router.post('/emailId',function(req,res,next){
     user.getUserEmail(req.body,function(err,rows){
         if(err){
             res.json(err);
@@ -44,7 +54,7 @@ router.post('/',function(req,res,next){
     });
   });
 
-  router.post("/", function(req, res, next) {
+  router.post("/signup", function(req, res, next) {
     user.signUp(req.body, function(err, rows) {
       console.log(req.body);
       if (err) {
@@ -56,7 +66,7 @@ router.post('/',function(req,res,next){
   });
 
   router.put("/:id", function(req, res, next) {
-    hotel.changePassword(req.params.id, req.body, function(err, rows) {
+    user.changePassword(req.params.id, req.body, function(err, rows) {
       if (err) {
         res.json(err);
       } else {

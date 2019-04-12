@@ -5,15 +5,19 @@ var user = {
         return db.query("select emailId,password from bns_users where emailId=? and password=?",[item.emailId,item.password],callback);
     },
 
+  
+
     signUp: function(item,callback) {
         return db.query(
-          "insert into bns_users values(?,?,?,?,?)",
+          "insert into bns_users values(?,?,?,?,?,?,?)",
           [
+            item.id,
             item.firstname,
             item.lastname,
             item.emailId,
             item.contactno,
-            item.password
+            item.password,
+            item.created_Date
           ],
           callback
         );
@@ -50,6 +54,12 @@ var user = {
         return db.query("select id,firstname,lastname,emailId,contactno,password,created_Date from bns_users", callback);
       },
 
+      noOfHotel: function(callback) {
+        return db.query(
+          "select count(hotel_id) as NumberOfHotels FROM bns_hotels",
+          callback
+        );
+      }
 
 };
 module.exports = user;
